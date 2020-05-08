@@ -1,0 +1,21 @@
+Ini merupakan file coba2
+untuk menguji command head
+Untuk itu diperlukan 10 baris, tapi kami menyediakan 21 baris
+Baris ke 4
+Baris ke 5
+Baris ke 6
+Baris ke 7
+Baris ke 8
+Baris ke 9
+Baris ke 10
+Baris ke 11
+Baris ke 12
+Baris ke 13
+Baris ke 14
+Baris ke 15
+Baris ke 16
+Baris ke 17
+Baris ke 18
+Baris ke 19
+Baris ke 20
+Baris ke 21

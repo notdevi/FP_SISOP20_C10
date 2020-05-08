@@ -1,0 +1,5 @@
+ini merupakan tes file
+lebih pendek
+bisa ngetest fungsi head dan zip
+isinya kurang dari 10 baris
+hanya ada 5 baris

@@ -1,2 +1,19 @@
 # FP_SISOP20_C10
 Final Project SISOP 2020
+
+### Nama Anggota Kelompok :
+### 1. Devi Hainun Pasya (05111840000014)
+### 2. Anggara Yuda Pratama (05111840000008)
+
+Command Pilihan :
+- [x] cd
+***cd.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/cd.c)
+***sh.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/sh.c)
+- [x] cp (biasa, -r, *) 
+***cp.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/cp.c)
+- [x] head  
+***head.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/head.c)
+- [x] stat 
+***stat.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/stat.c)
+- [ ] zip 
+***zipfail.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/zipfail.c)

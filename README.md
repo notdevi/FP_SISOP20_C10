@@ -16,7 +16,7 @@ Command Pilihan :
 
 ***cp.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/cp.c)
 
-- [x] head  
+- [x] head (-n, -c, -q, -v)
 
 ***head.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/head.c)
 
@@ -24,6 +24,6 @@ Command Pilihan :
 
 ***stat.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/stat.c)
 
-- [ ] zip 
+- [ ] zip (biasa, -r, -m, biasa)
 
 ***zipfail.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/zipfail.c)

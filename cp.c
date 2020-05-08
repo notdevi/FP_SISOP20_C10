@@ -6,6 +6,11 @@
 
 char buffer[512], str1[200];
 
+void print_help() {
+	printf(1, "Usage : \ncp [FILE1]... [FILE2]... \tCopy FILE1 to FILE2.\nPossible arguments are :\n\t -r [DIR1]... [DIR2]...\t\tCopy DIR1 to DIR2 recursively;\n\t * [PATH]...\t\t\tCopy all files in current working dir to PATH;\n");
+	exit();
+}
+
 char *file_name(char *str) {
 	char *filename = str;
 	char *temp = str;
@@ -89,48 +94,45 @@ void cp_star(char *path, char *dest) {
 	strcpy(temp, dest);
 
 	if((fd = open(path, 0)) < 0) {
-		printf(2, "cp: cant open %s\n", path);
+		printf(2, "ls: cant open %s\n", path);
 		return;
 	}
 
 	if(fstat(fd, &st) < 0) {
-		printf(2, "cp: cant stat %s\n", path);
+		printf(2, "ls: cant stat %s\n", path);
 		close(fd);
 		return;
 	}
 
-	switch(st.type) {
-		case T_FILE :
-			printf(1, "failed\n");
-			break;
-		case T_DIR : 
-			if((strlen(path)+1+DIRSIZ+1) > sizeof(buf)) {
-				printf(1, "cp: path is too long\n");
-				break;
-			}
-			strcpy(buf, path);
-			p = buf + strlen(buf);
-			*p = '/';
-			p++;
+	if(st.type == T_FILE) {
+		printf(1, "failed\n");
+	} else if(st.type == T_DIR) {
+		if((strlen(path)+1+DIRSIZ+1) > sizeof(buf)) {
+			printf(1, "cp: path is too long\n");
+			// break;
+		}
+		strcpy(buf, path);
+		p = buf + strlen(buf);
+		*p = '/';
+		p++;
 
-			while(read(fd, &de, sizeof(de)) == sizeof(de)) {
-				if(de.inum == 0) {
-					continue;
-				}
-				memmove(p, de.name, DIRSIZ);
-				p[DIRSIZ] = 0;
-		
-				if(stat(buf, &st) < 0) {
-					printf(1, "cp: cannot stat %s\n", buf);
-					continue;
-				}
-				if(st.type == T_FILE) {
-					strcpy(dest, temp);
-					printf(1, "CP Success : %s to %s\n", buf, dest);
-					cp_biasa(buf, dest);
-				}
+		while(read(fd, &de, sizeof(de)) == sizeof(de)) {
+			if(de.inum == 0) {
+				continue;
 			}
-			break;
+			memmove(p, de.name, DIRSIZ);
+			p[DIRSIZ] = 0;
+		
+			if(stat(buf, &st) < 0) {
+				printf(1, "cp: cannot stat %s\n", buf);
+				continue;
+			}
+			if(st.type == T_FILE) {
+				strcpy(dest, temp);
+				printf(1, "CP Success : %s to %s\n", buf, dest);
+				cp_biasa(buf, dest);
+			}
+		}
 	}
 	close(fd);
 }
@@ -165,52 +167,49 @@ void cp_rekursif(char *path, char *dest) {
 		return;
 	}
 
-	switch(st.type) {
-		case T_FILE :
-			printf(1, "failed\n");
-			break;
-		case T_DIR : 
-			if((strlen(path)+1+DIRSIZ+1) > sizeof(buf)) {
-				printf(1, "path is too long\n");
-				break;
-			}
-			strcpy(buf, path);
-			p = buf + strlen(buf);
-			*p = '/';
-			p++;
+	if(st.type == T_FILE) {
+		printf(1, "failed\n");
+	} else if(st.type == T_DIR) {
+		if((strlen(path)+1+DIRSIZ+1) > sizeof(buf)) {
+			printf(1, "path is too long\n");
+			// break;
+		}
+		strcpy(buf, path);
+		p = buf + strlen(buf);
+		*p = '/';
+		p++;
 
-			while(read(fd, &de, sizeof(de)) == sizeof(de)) {
-				if(de.inum == 0) {
-					continue;
-				}
-				memmove(p, de.name, DIRSIZ);
-				p[DIRSIZ] = 0;
+		while(read(fd, &de, sizeof(de)) == sizeof(de)) {
+			if(de.inum == 0) {
+				continue;
+			}
+			memmove(p, de.name, DIRSIZ);
+			p[DIRSIZ] = 0;
 		
-				if(stat(buf, &st) < 0) {
-					printf(1, "cp: cannot stat %s\n", buf);
+			if(stat(buf, &st) < 0) {
+				printf(1, "cp: cannot stat %s\n", buf);
+				continue;
+			}
+			if(st.type == T_FILE) {
+				strcpy(dest, temp);
+				printf(1, "CP Success : %s to %s\n", buf, dest);
+				cp_biasa(buf, dest);
+			}
+			else if(st.type == T_DIR) {
+				char cmp[50];
+
+				strcpy(cmp, file_name(buf));
+				if(strcmp(cmp, ".") == 0 || strcmp(cmp, "..") == 0) {
 					continue;
 				}
-				if(st.type == T_FILE) {
-					strcpy(dest, temp);
-					printf(1, "CP Success : %s to %s\n", buf, dest);
-					cp_biasa(buf, dest);
-				}
-				else if(st.type == T_DIR) {
-					char cmp[50];
+				str_gabung(dest, "/");
+				str_gabung(dest, file_name(buf));
+				mkdir(dest);
 
-					strcpy(cmp, file_name(buf));
-					if(strcmp(cmp, ".") == 0 || strcmp(cmp, "..") == 0) {
-						continue;
-					}
-					str_gabung(dest, "/");
-					str_gabung(dest, file_name(buf));
-					mkdir(dest);
-
-					printf(1, "Create Directory %s inside %s\n", buf, dest);
-					cp_rekursif(buf, str_gabung(str_gabung(dest,"/"), file_name(buf)));
-				}
+				printf(1, "Create Directory %s inside %s\n", buf, dest);
+				cp_rekursif(buf, str_gabung(str_gabung(dest,"/"), file_name(buf)));
 			}
-			break;
+		}
 	}
 	close(fd);
 }
@@ -219,9 +218,15 @@ int main(int argc, char *argv[]){
 	if(argc < 2) {
 		printf(1, "arguments not enough\n");
 		exit();
-	} else if(argc < 3) {
-		printf(1, "cp: missing destination file operand after %s\n", argv[1]);
-		exit();
+	} 
+	else if(argc == 2){
+		if(strcmp(argv[1], "-h") == 0) {
+			print_help();
+		}
+		else{
+			printf(1, "Wrong command or missing destination file operand after %s\n", argv[1]);
+			exit();
+		}
 	}
 
 	if(strcmp(file_name(argv[1]), "*") == 0) {
@@ -233,3 +238,9 @@ int main(int argc, char *argv[]){
 	}
 	exit();
 }
+
+
+
+
+
+	 

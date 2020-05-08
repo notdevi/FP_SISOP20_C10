@@ -25,6 +25,7 @@ Command Pilihan :
 ***stat.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/stat.c)
 
 - [ ] zip (biasa, -r, -m, biasa) 
+
 sumber : https://github.com/zhaoyuhang/THSS14-XV6/blob/master/xv6/zip.c
 
 ***zipfail.c*** : [kodingan](https://github.com/notdevi/FP_SISOP20_C10/blob/master/zipfail.c)

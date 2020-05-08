@@ -19,17 +19,18 @@ char *file_name(char *str) {
 	return filename;
 }
 
-char *str_gabung(char *x, char *y) {
+char *str_gabung(char *string1, char *string2) {
 	char str2[200];
+	int i;
 	
-	strcpy(str1, x);
-	strcpy(str2, y);
+	strcpy(str1, string1);
+	strcpy(str2, string2);
 	
-	for(int i=0; str1[i] != '\0'; ++i);
+	for(i=0; str1[i] != '\0'; ++i);
 	for(int j=0; str2[j] != '\0'; ++j, ++i) {
 		str1[i] = str2[j];
 	}
-	str[i] = '\0';
+	str1[i] = '\0';
 	return str1;
 }	
 
@@ -50,7 +51,7 @@ void cp_biasa(char *src, char *dest) {
 			return;
 		}
 
-		if(st.type == T.DIR) {
+		if(st.type == T_DIR) {
 			char *fname;
 			
 			fname = file_name(src);
@@ -194,7 +195,7 @@ void cp_rekursif(char *path, char *dest) {
 					printf(1, "CP Success : %s to %s\n", buf, dest);
 					cp_biasa(buf, dest);
 				}
-				else if(st.type == T_DIR) [
+				else if(st.type == T_DIR) {
 					char cmp[50];
 
 					strcpy(cmp, file_name(buf));
@@ -206,9 +207,7 @@ void cp_rekursif(char *path, char *dest) {
 					mkdir(dest);
 
 					printf(1, "Create Directory %s inside %s\n", buf, dest);
-					str_gabung(dest, "/");
-					str_gabung(dest, file_name(buf));
-					cp_rekursif(buf, dest);
+					cp_rekursif(buf, str_gabung(str_gabung(dest,"/"), file_name(buf)));
 				}
 			}
 			break;
@@ -226,17 +225,11 @@ int main(int argc, char *argv[]){
 	}
 
 	if(strcmp(file_name(argv[1]), "*") == 0) {
-		cp_star(nostar(argv[1], argv[2]);
-	} else if(strcmp(argv[1], "-R") == 0) {
+		cp_star(no_star(argv[1]), argv[2]);
+	} else if(strcmp(argv[1], "-r") == 0) {
 		cp_rekursif(argv[2], argv[3]);
 	} else {
 		cp_biasa(argv[1], argv[2]);
 	}
 	exit();
 }
-
-
-
-
-
-	 

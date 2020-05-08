@@ -199,6 +199,37 @@ void encode_str() {
 }
 }
 
+/*
+void Decode(void) 
+{
+    int  k, r, x, y, z;
+    unsigned int  flags;
+    unsigned char c, i, j;
+    for (y = 0; y < N - F; y++) text_buf[y] = 0x0;
+    r = N - F;  flags = 0;
+    for ( ; ; ) {
+        if (((flags >>= 1) & 256) == 0) {
+            if (read(infile, &c, 1) == 0) break;
+            x = c;
+            flags = x | 0xff00;
+        }             
+        if (flags & 1) {
+            if (read(infile, &c, 1) == 0) break;
+            write(outfile,&c,1);  text_buf[r++] = c;  r &= (N - 1);
+        } else {
+            if (read(infile, &i, 1) == 0) break;
+            if (read(infile, &j, 1) == 0) break;
+            y = i; z = j;
+            y |= ((z & 0xf0) << 4);  z = (z & 0x0f) + THRESHOLD;
+            for (k = 0; k <= z; k++) {
+                c = text_buf[(y + k) & (N - 1)];
+                write(outfile,&c, 1);  text_buf[r++] = c;  r &= (N - 1);
+            }
+        }
+    }
+}
+*/
+
 int main(int argc, char *argv[]) {
 	if(argc < 3) {
 		printf(2, "arguments not enough\n");
@@ -253,3 +284,40 @@ int main(int argc, char *argv[]) {
 	}
 	exit();
 }
+
+/*
+int main(int argc, char *argv[])
+{
+    char  *s;
+    
+    if (argc != 4) {
+        printf(2, "'zip e file1 file2' encodes file1 into file2.\n'zip d file2 file1' decodes file2 into file1.\n");
+        exit();
+    }
+    s = argv[1];
+    if (s[1] || (s[0] != 'd' && s[0] != 'e')){
+    	printf(2, "'zip e file1 file2' encodes file1 into file2.\n'zip d file2 file1' decodes file2 into file1.\n");
+        exit();
+    }
+    if (strcmp(argv[2], argv[3]) == 0){
+    	printf(2, "cannot operate the same file\n");
+    	exit();
+    }
+    if ((infile = open(argv[2], O_RDONLY)) == -1){
+    	printf(2, "cannot open file %s\n", argv[2]);
+    	close(infile);
+    	exit();
+    }
+    if ((outfile = open(argv[3], O_WRONLY | O_CREATE)) == -1){
+    	printf(2, "cannot open file %s\n", argv[3]);
+    	close(outfile);
+    	exit();
+    }
+    if ((*s) == 'e') Encode();  else Decode();
+    
+    close(infile);  
+    close(outfile);
+    
+    exit();
+}
+*/

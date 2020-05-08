@@ -24,29 +24,29 @@ int main(int argc, char *argv[]){
   if(stt.type == T_DIR){
     printf(1, ">>> Informasi direktori dari %s <<<\n", nama);
     printf(1, "\n");
-    printf(1, "Size: \t\t%d\n", stt.size);
-    printf(1, "Type: \t\tDirectory\n");
-    printf(1, "Device: \t%d\n", stt.dev);
-    printf(1, "File Inode: \t%d\n", stt.ino);
-    printf(1, "Links: \t\t%d\n", stt.nlink);
+    printf(1, "Size\t\t: %d\n", stt.size);
+    printf(1, "Type\t\t: Directory\n");
+    printf(1, "Device\t\t: %d\n", stt.dev);
+    printf(1, "File Inode\t: %d\n", stt.ino);
+    printf(1, "Links\t\t: %d\n", stt.nlink);
   }
   else if(stt.type == T_FILE){
     printf(1, ">>> Informasi direktori dari %s <<<\n", nama);
     printf(1, "\n");
-    printf(1, "Size: \t\t%d\n", stt.size);
-    printf(1, "Type: \t\tFile\n");
-    printf(1, "Device: \t%d\n", stt.dev);
-    printf(1, "File Inode: \t%d\n", stt.ino);
-    printf(1, "Links: \t\t%d\n", stt.nlink);
+    printf(1, "Size\t\t: %d\n", stt.size);
+    printf(1, "Type\t\t: File\n");
+    printf(1, "Device\t\t: %d\n", stt.dev);
+    printf(1, "File Inode\t: %d\n", stt.ino);
+    printf(1, "Links\t\t: %d\n", stt.nlink);
   }
   else if(stt.type == T_DEV){
     printf(1, ">>> Informasi direktori dari %s <<<\n", nama);
     printf(1, "\n");
-    printf(1, "Size: \t\t%d\n", stt.size);
-    printf(1, "Type: \t\tDevice\n");
-    printf(1, "Device: \t%d\n", stt.dev);
-    printf(1, "File Inode: \t%d\n", stt.ino);
-    printf(1, "Links: \t\t%d\n", stt.nlink);
+    printf(1, "Size\t\t: %d\n", stt.size);
+    printf(1, "Type\t\t: Device\n");
+    printf(1, "Device\t\t: %d\n", stt.dev);
+    printf(1, "File Inode\t: %d\n", stt.ino);
+    printf(1, "Links\t\t: %d\n", stt.nlink);
   }
 
   exit();
